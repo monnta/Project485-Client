@@ -10,9 +10,27 @@ import signIn from './components/signIn';
 import signUp from './components/signUp';
 import profileStatus from './components/profileStatus';
 import Restaurant from './Restaurant';
+import { Admin, Resource, EditGuesser } from 'react-admin';
+import { UserList, UserCreate,UserFilter } from './users';
+import { FoodList, FoodCreate,FoodFilter } from './FoodList';
+import { ResList, ResCreate,ResFilter } from './ResterauntAdmin';
+import authProvider from './authProvider';
+import Dashboard from './Dashboard';
+
+import jsonServerProvider from 'ra-data-json-server';
+
+const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
 
 function App() {
   return (
+    <div>
+  <Admin dataProvider={dataProvider} authProvider={authProvider} dashboard={Dashboard}>
+      <Resource name="users" list={UserList} edit={EditGuesser} create={UserCreate}  />
+      <Resource name="FoodList" list={FoodList} edit={EditGuesser} create={FoodCreate}  />
+      <Resource name="ResterauntAdmin" list={ResList} edit={EditGuesser} create={ResCreate}  />
+  </Admin>
+  </div>
+    
     <BrowserRouter>
       <ul class="nav-bar">
         <li class="nav-item"><Link to='/home' class="active">Home Top 10</Link></li>
